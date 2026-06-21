@@ -232,6 +232,75 @@
             .btn-outline { margin-left: 0; margin-top: 15px; }
             .hero { padding: 50px 20px 40px; }
         }
+                /* ===== CARRUSEL ===== */
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 30px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .carousel-slide {
+            display: none;
+            position: relative;
+        }
+        .carousel-slide.active {
+            display: block;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.7);
+            color: #1e293b;
+            border: none;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+        .carousel-btn:hover {
+            background: rgba(255,255,255,0.9);
+        }
+        .carousel-btn.prev { left: 15px; }
+        .carousel-btn.next { right: 15px; }
+        .carousel-dots {
+            text-align: center;
+            padding: 10px 0;
+            background: white;
+        }
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 6px;
+            background: #cbd5e1;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dot.active, .dot:hover {
+            background: #3498db;
+        }
     </style>
 </head>
 <body>
@@ -298,17 +367,33 @@
             </div>
         </section>
 
-        <!-- ==================== VIDEO ==================== -->
-        <section class="section" id="como-funciona">
-            <div class="section-label">DEMOSTRACIÓN</div>
-            <h2 class="section-title">Mira cómo transforma tu negocio en 90 segundos</h2>
-            <div class="card" style="padding:20px; text-align:center;">
-                <div style="background:#f1f5f9; border-radius:12px; padding:60px 20px; margin:20px 0;">
-                    <p style="color:#64748b; font-size:1.1rem;">🎬 [Aquí irá tu video demostrativo]</p>
-                </div>
-                <a href="https://github.com/joan130390/joan130390.github.io/raw/main/StockMaster_Setup.exe" class="btn btn-primary">QUIERO PROBARLO YA</a>
-            </div>
-        </section>
+        
+        <!-- ==================== CARRUSEL DE IMÁGENES ==================== -->
+<div class="carousel-container">
+    <div class="carousel-slide">
+        <img src="img/agregar-producto.png" alt="Agregar producto con blindaje USD en StockMaster">
+        <div class="carousel-caption">Agrega productos con margen blindado en segundos</div>
+    </div>
+    <div class="carousel-slide">
+        <img src="img/punto-venta.png" alt="Punto de venta rápido y moderno de StockMaster">
+        <div class="carousel-caption">Punto de venta rápido. Cobra en Bs, gana en USDT</div>
+    </div>
+    <div class="carousel-slide">
+        <img src="img/brecha-margenes.png" alt="Análisis de brecha cambiaria y márgenes reales en StockMaster">
+        <div class="carousel-caption">El cerebro: análisis de brecha y márgenes reales</div>
+    </div>
+
+    <!-- Botones de navegación -->
+    <button class="carousel-btn prev" onclick="cambiarSlide(-1)">&#10094;</button>
+    <button class="carousel-btn next" onclick="cambiarSlide(1)">&#10095;</button>
+
+    <!-- Indicadores (puntos) -->
+    <div class="carousel-dots">
+        <span class="dot active" onclick="irASlide(0)"></span>
+        <span class="dot" onclick="irASlide(1)"></span>
+        <span class="dot" onclick="irASlide(2)"></span>
+    </div>
+</div>
 
         <!-- ==================== TESTIMONIAL ==================== -->
         <section class="section">
@@ -338,6 +423,30 @@
             💬 Únete al grupo
         </a>
     </div>
+<script>
+let slideActual = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const dots = document.querySelectorAll('.dot');
 
+function mostrarSlide(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    slideActual = (n + slides.length) % slides.length;
+    slides[slideActual].classList.add('active');
+    dots[slideActual].classList.add('active');
+}
+
+function cambiarSlide(n) {
+    mostrarSlide(slideActual + n);
+}
+
+function irASlide(n) {
+    mostrarSlide(n);
+}
+
+// Iniciar carrusel automático
+mostrarSlide(0);
+setInterval(() => cambiarSlide(1), 5000); // Cambia cada 5 segundos
+</script>
 </body>
 </html>
