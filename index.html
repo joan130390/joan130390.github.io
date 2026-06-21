@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMaster — Domina tu Inventario. Domina la Inflación.</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== TIPOGRAFÍA ===== */
+        h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.5px; }
+        h2 { font-size: 2rem; font-weight: 700; }
+        h3 { font-size: 1.3rem; font-weight: 600; }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+            color: white;
+            padding: 70px 24px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 70%, rgba(52,152,219,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(39,174,96,0.10) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(-20px, -20px); } }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { margin-bottom: 16px; background: linear-gradient(to right, #fff, #a0d2f0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.3rem; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+        .badge span { color: #f39c12; margin: 0 4px; }
+
+        /* ===== BOTONES ===== */
+        .btn {
+            display: inline-block;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            cursor: pointer;
+            border: none;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            box-shadow: 0 8px 25px rgba(39,174,96,0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 35px rgba(39,174,96,0.55);
+        }
+        .btn-primary:active { transform: translateY(-1px); }
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.5);
+            margin-left: 15px;
+        }
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            box-shadow: 0 8px 25px rgba(37,211,102,0.35);
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 35px rgba(37,211,102,0.5);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        /* ===== SECCIONES ===== */
+        .section { padding: 60px 0; }
+        .section-label {
+            text-align: center;
+            color: #64748b;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #0f172a;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin: 30px 0; }
+
+        .problem-card { border-left: 5px solid #e74c3c; }
+        .solution-card { border-left: 5px solid #27ae60; background: linear-gradient(to bottom right, #ffffff, #f0fdf4); }
+
+        /* ===== FEATURES ===== */
+        .feature-icon {
+            width: 55px; height: 55px;
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 18px;
+        }
+        .icon-blue { background: #eff6ff; color: #3498db; }
+        .icon-green { background: #ecfdf5; color: #27ae60; }
+        .icon-orange { background: #fff7ed; color: #f39c12; }
+
+        /* ===== TESTIMONIAL ===== */
+        .testimonial {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .testimonial::before {
+            content: '“';
+            font-size: 6rem;
+            color: #e2e8f0;
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-family: Georgia, serif;
+        }
+        .testimonial p { font-size: 1.15rem; font-style: italic; color: #475569; }
+        .testimonial strong { color: #0f172a; }
+
+        /* ===== CTA FINAL ===== */
+        .cta-final {
+            background: linear-gradient(135deg, #0f172a, #1e3a5f);
+            color: white;
+            text-align: center;
+            padding: 60px 24px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-final::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(39,174,96,0.3) 0%, transparent 70%);
+            top: -50px; right: -50px;
+            border-radius: 50%;
+        }
+        .cta-final h2 { position: relative; z-index: 2; }
+        .price-tag {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #2ecc71;
+            margin: 20px 0 10px;
+            position: relative; z-index: 2;
+        }
+        .guarantee {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            position: relative; z-index: 2;
+        }
+
+        /* ===== WHATSAPP FLOAT ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999;
+        }
+        .whatsapp-float a {
+            display: flex; align-items: center; gap: 10px;
+            background: #25D366;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .whatsapp-float a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 35px rgba(37,211,102,0.55);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .btn-outline { margin-left: 0; margin-top: 15px; }
+            .hero { padding: 50px 20px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== HERO ==================== -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="badge">🔥 <span>NUEVO</span> EN VENEZUELA</div>
+            <h1>Tu inventario blindado.<br>Tu ganancia en dólares.</h1>
+            <p>El único sistema punto de venta que calcula la brecha cambiaria en tiempo real y te dice exactamente cuánto estás ganando en USDT. Hecho por un bodeguero, para comerciantes que no se rinden.</p>
+            <a href="ENLACE_DE_DESCARGA" class="btn btn-primary">⬇️ PROBAR GRATIS 3 DÍAS</a>
+            <a href="#como-funciona" class="btn btn-outline">▶ Ver video</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ==================== PROBLEMA vs SOLUCIÓN ==================== -->
+        <section class="section">
+            <div class="section-label">EL DILEMA DEL COMERCIANTE</div>
+            <h2 class="section-title">¿Vendes sin saber si ganas?</h2>
+            <div class="grid-2">
+                <div class="card problem-card">
+                    <h3 style="color:#e74c3c;">❌ La pesadilla de cada día</h3>
+                    <ul style="margin-top:15px; padding-left:20px; color:#475569;">
+                        <li style="margin-bottom:10px;">Repones más caro de lo que vendiste.</li>
+                        <li style="margin-bottom:10px;">Tus fiados se derriten mientras esperas el pago.</li>
+                        <li style="margin-bottom:10px;">No sabes qué precio poner para no perder.</li>
+                        <li style="margin-bottom:10px;">El dólar sube y tu capital se esfuma sin avisar.</li>
+                    </ul>
+                </div>
+                <div class="card solution-card">
+                    <h3 style="color:#27ae60;">✅ StockMaster lo resuelve</h3>
+                    <ul style="margin-top:15px; padding-left:20px; color:#475569;">
+                        <li style="margin-bottom:10px;">Precios automáticos con la tasa BCV y Binance.</li>
+                        <li style="margin-bottom:10px;">Márgenes reales que protegen tu reposición.</li>
+                        <li style="margin-bottom:10px;">Fiados blindados: cobras en Bs, ahorras en USDT.</li>
+                        <li style="margin-bottom:10px;">Alertas de productos agotados o por vencer.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CARACTERÍSTICAS ==================== -->
+        <section class="section">
+            <div class="section-label">POR QUÉ ES DIFERENTE</div>
+            <h2 class="section-title">Funciones que ningún otro sistema te da</h2>
+            <div class="grid-3">
+                <div class="card" style="text-align:center;">
+                    <div class="feature-icon icon-blue">📊</div>
+                    <h3>Brecha Cambiaria en Vivo</h3>
+                    <p style="color:#64748b; margin-top:10px;">Conecta la tasa BCV con Binance P2P. Sabes tu margen real en USDT, no en bolívares ficticios.</p>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div class="feature-icon icon-green">🛡️</div>
+                    <h3>Fiados Blindados</h3>
+                    <p style="color:#64748b; margin-top:10px;">Registra ventas a crédito y el sistema estima tu ganancia en USDT. Cuando te paguen, no habrás perdido.</p>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div class="feature-icon icon-orange">🧠</div>
+                    <h3>Sugerencias Inteligentes</h3>
+                    <p style="color:#64748b; margin-top:10px;">Te avisa cuándo subir o bajar márgenes según la brecha. No más cálculos a mano ni precios al azar.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIDEO ==================== -->
+        <section class="section" id="como-funciona">
+            <div class="section-label">DEMOSTRACIÓN</div>
+            <h2 class="section-title">Mira cómo transforma tu negocio en 90 segundos</h2>
+            <div class="card" style="padding:20px; text-align:center;">
+                <div style="background:#f1f5f9; border-radius:12px; padding:60px 20px; margin:20px 0;">
+                    <p style="color:#64748b; font-size:1.1rem;">🎬 [Aquí irá tu video demostrativo]</p>
+                </div>
+                <a href="ENLACE_DE_DESCARGA" class="btn btn-primary">QUIERO PROBARLO YA</a>
+            </div>
+        </section>
+
+        <!-- ==================== TESTIMONIAL ==================== -->
+        <section class="section">
+            <div class="testimonial">
+                <p>"Soy Joan Bravo, bodeguero en Coro, Falcón. Este sistema lo construí porque cada vez que reponía veía cómo mi plata se encogía. Hoy ahorro USDT semanales y sé exactamente cuánto gano con cada venta. <strong>No es magia, es matemática aplicada al mostrador.</strong>"</p>
+            </div>
+        </section>
+
+        <!-- ==================== PRECIO FINAL ==================== -->
+        <section class="section">
+            <div class="cta-final">
+                <h2>Licencia perpetua. Sin mensualidades.</h2>
+                <div class="price-tag">$15 USD</div>
+                <p style="font-size:1.2rem;">Pago único. Acceso de por vida. Actualizaciones incluidas.</p>
+                <div class="guarantee">🔒 3 días de prueba gratuita. Sin tarjeta de crédito.</div>
+                <div style="margin-top:30px; position:relative; z-index:2;">
+                    <a href="ENLACE_DE_DESCARGA" class="btn btn-primary" style="font-size:1.2rem; padding:18px 45px;">⬇️ DESCARGAR PRUEBA GRATIS</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== WHATSAPP FLOTANTE ==================== -->
+    <div class="whatsapp-float">
+        <a href="https://chat.whatsapp.com/TU_ENLACE_DE_GRUPO" target="_blank">
+            💬 Únete al grupo
+        </a>
+    </div>
+
+</body>
+</html>
