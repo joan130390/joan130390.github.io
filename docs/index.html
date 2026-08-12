@@ -232,7 +232,7 @@
             .btn-outline { margin-left: 0; margin-top: 15px; }
             .hero { padding: 50px 20px 40px; }
         }
-                /* ===== CARRUSEL ===== */
+        /* ===== CARRUSEL ===== */
         .carousel-container {
             position: relative;
             max-width: 800px;
@@ -301,9 +301,7 @@
         .dot.active, .dot:hover {
             background: #3498db;
         }
-        html {
-    scroll-behavior: smooth;
-}
+        html { scroll-behavior: smooth; }
     </style>
 </head>
 <body>
@@ -314,7 +312,10 @@
             <div class="badge">🔥 <span>NUEVO</span> EN VENEZUELA</div>
             <h1>Tu inventario blindado.<br>Tu ganancia en dólares.</h1>
             <p>El único sistema punto de venta que calcula la brecha cambiaria en tiempo real y te dice exactamente cuánto estás ganando en USDT. Hecho por un bodeguero, para comerciantes que no se rinden.</p>
-            <a href="https://github.com/joan130390/joan130390.github.io/raw/main/SistemaInventario_Setup_1.0.0.exe" class="btn btn-primary">⬇️ PROBAR GRATIS 3 DÍAS</a>
+            <a href="https://github.com/joan130390/joan130390.github.io/releases/download/v1.0.0/SistemaInventario_Setup_1.0.0.exe" class="btn btn-primary">⬇️ PROBAR GRATIS 3 DÍAS</a>
+            <div style="margin-top: 12px; font-size: 0.85rem; opacity: 0.75; max-width: 500px; margin: 12px auto; text-align: center; color: white;">    
+                ⚠️ Si Windows muestra "protegió su equipo": clic en <strong>"Más información" → "Ejecutar de todos modos"</strong>. Es normal: el programa no está firmado digitalmente pero es seguro.
+            </div>
             <a href="#como-funciona" class="btn btn-outline">▶ Ver video</a>
         </div>
     </header>
@@ -347,6 +348,23 @@
             </div>
         </section>
 
+        <!-- ==================== VERIFICACIÓN (NUEVO) ==================== -->
+        <section class="section">
+            <div class="card" style="text-align:center; max-width:600px; margin:0 auto;">
+                <h3>🔒 Verifica que el archivo es legítimo</h3>
+                <p style="color:#64748b; margin-top:15px;">
+                    Antes de instalar, abre PowerShell y pega:<br>
+                    <code style="background:#f1f5f9; padding:8px 15px; border-radius:8px; display:inline-block; margin-top:10px; word-break: break-all;">
+                        Get-FileHash SistemaInventario_Setup_1.0.0.exe -Algorithm SHA256
+                    </code><br><br>
+                    El resultado debe ser:<br>
+                    <code style="background:#f1f5f9; padding:8px 15px; border-radius:8px; font-size:0.85rem; word-break: break-all;">
+                        4C2367BEE0333330E59536D767939AF99935CF7797F0D5BF30EE384256C28427
+                    </code>
+                </p>
+            </div>
+        </section>
+
         <!-- ==================== CARACTERÍSTICAS ==================== -->
         <section class="section">
             <div class="section-label">POR QUÉ ES DIFERENTE</div>
@@ -369,23 +387,25 @@
                 </div>
             </div>
         </section>
-
         
-               <!-- ==================== VIDEO DEMOSTRATIVO ==================== -->
+        <!-- ==================== VIDEO DEMOSTRATIVO ==================== -->
         <section class="section" id="como-funciona">
             <div class="section-label">DEMOSTRACIÓN</div>
             <h2 class="section-title">Mira cómo transforma tu negocio en 90 segundos</h2>
             <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-            src="https://www.youtube-nocookie.com/embed/ERRiUOySEqA" 
-            title="StockMaster - Demo" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-    </iframe>
+                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                        src="https://www.youtube-nocookie.com/embed/ERRiUOySEqA" 
+                        title="StockMaster - Demo" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                </iframe>
             </div>
             <div style="text-align: center; margin-top: 20px;">
-                <a href="https://github.com/joan130390/joan130390.github.io/raw/main/SistemaInventario_Setup_1.0.0.exe" class="btn btn-primary">⬇️ PROBAR GRATIS 3 DÍAS</a>
+                <a href="https://github.com/joan130390/joan130390.github.io/releases/download/v1.0.0/SistemaInventario_Setup_1.0.0.exe" class="btn btn-primary">⬇️ PROBAR GRATIS 3 DÍAS</a>
+                <div style="margin-top: 12px; font-size: 0.85rem; opacity: 0.75; max-width: 500px; margin: 12px auto; text-align: center;">    
+                    ⚠️ Si Windows muestra "protegió su equipo": clic en <strong>"Más información" → "Ejecutar de todos modos"</strong>. Es normal: el programa no está firmado digitalmente pero es seguro.
+                </div>
             </div>
         </section>
 
@@ -404,7 +424,10 @@
                 <p style="font-size:1.2rem;">Pago único. Acceso de por vida. Actualizaciones incluidas.</p>
                 <div class="guarantee">🔒 3 días de prueba gratuita. Sin tarjeta de crédito.</div>
                 <div style="margin-top:30px; position:relative; z-index:2;">
-                    <a href="https://github.com/joan130390/joan130390.github.io/raw/main/SistemaInventario_Setup_1.0.0.exe" class="btn btn-primary" style="font-size:1.2rem; padding:18px 45px;">⬇️ DESCARGAR PRUEBA GRATIS</a>
+                    <a href="https://github.com/joan130390/joan130390.github.io/releases/download/v1.0.0/SistemaInventario_Setup_1.0.0.exe" class="btn btn-primary" style="font-size:1.2rem; padding:18px 45px;">⬇️ DESCARGAR PRUEBA GRATIS</a>
+                    <div style="margin-top: 12px; font-size: 0.85rem; opacity: 0.75; max-width: 500px; margin: 12px auto; text-align: center;">    
+                        ⚠️ Si Windows muestra "protegió su equipo": clic en <strong>"Más información" → "Ejecutar de todos modos"</strong>. Es normal: el programa no está firmado digitalmente pero es seguro.
+                    </div>
                 </div>
             </div>
         </section>
